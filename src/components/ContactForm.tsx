@@ -1,125 +1,107 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+
+const FORM_ENDPOINT = "https://formspree.io/f/XXXXXXXX"; // <-- tu endpoint de Formspree
 
 export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: ""
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle"|"sending"|"ok"|"error">("idle");
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
-    const subject = encodeURIComponent(`Technikhilfe Anfrage von ${formData.name}`);
-    const body = encodeURIComponent(`
-Name: ${formData.name}
-Telefon: ${formData.phone}
-E-Mail: ${formData.email}
+    setStatus("sending");
+    setError(null);
 
-Nachricht:
-${formData.message}
-    `);
-    
-    window.location.href = `mailto:pleinto@proton.me?subject=${subject}&body=${body}`;
-    setSubmitted(true);
-  };
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
+    const payload = {
+      name: String(formData.get("name") || "").trim(),
+      phone: String(formData.get("phone") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      message: String(formData.get("message") || "").trim(),
+    };
 
-  if (submitted) {
-    return (
-      <div 
-        className="bg-card border border-border rounded-lg p-6 text-center"
-        aria-live="polite"
-      >
-        <h3 className="text-xl font-semibold mb-2 text-card-foreground">Danke!</h3>
-        <p className="text-muted-foreground">Ihre Nachricht ist eingegangen. Ich melde mich bald.</p>
-      </div>
-    );
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(txt || "Fehler beim Senden.");
+      }
+
+      setStatus("ok");
+      form.reset();
+    } catch (err: any) {
+      setStatus("error");
+      setError(err?.message || "Fehler beim Senden.");
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-card border border-border rounded-lg p-6 space-y-4">
+    <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <Label htmlFor="name" className="text-sm font-medium">
-          Name *
-        </Label>
-        <Input
-          id="name"
+        <label className="block text-sm font-medium mb-1">Name *</label>
+        <input
           name="name"
-          type="text"
           required
-          value={formData.name}
-          onChange={handleChange}
-          className="mt-1"
-          style={{ minHeight: '44px' }}
+          className="w-full rounded-lg bg-muted px-4 py-3 outline-none"
         />
       </div>
-      
+
       <div>
-        <Label htmlFor="phone" className="text-sm font-medium">
-          Telefon *
-        </Label>
-        <Input
-          id="phone"
+        <label className="block text-sm font-medium mb-1">Telefon *</label>
+        <input
           name="phone"
-          type="tel"
           required
-          value={formData.phone}
-          onChange={handleChange}
-          className="mt-1"
-          style={{ minHeight: '44px' }}
+          className="w-full rounded-lg bg-muted px-4 py-3 outline-none"
         />
       </div>
-      
+
       <div>
-        <Label htmlFor="email" className="text-sm font-medium">
+        <label className="block text-sm font-medium mb-1">
           E-Mail (optional)
-        </Label>
-        <Input
-          id="email"
-          name="email"
+        </label>
+        <input
           type="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="mt-1"
-          style={{ minHeight: '44px' }}
+          name="email"
+          className="w-full rounded-lg bg-muted px-4 py-3 outline-none"
         />
       </div>
-      
+
       <div>
-        <Label htmlFor="message" className="text-sm font-medium">
-          Nachricht *
-        </Label>
-        <Textarea
-          id="message"
+        <label className="block text-sm font-medium mb-1">Nachricht *</label>
+        <textarea
           name="message"
           required
-          value={formData.message}
-          onChange={handleChange}
-          className="mt-1 min-h-24"
-          placeholder="Beschreiben Sie kurz Ihr Technikproblem..."
+          rows={4}
+          className="w-full rounded-lg bg-muted px-4 py-3 outline-none"
         />
       </div>
-      
-      <Button 
-        type="submit" 
-        className="w-full"
-        style={{ minHeight: '44px' }}
+
+      {status === "ok" && (
+        <p className="text-green-600 text-sm">
+          Danke! Ich melde mich schnellstmöglich.
+        </p>
+      )}
+      {status === "error" && (
+        <p className="text-red-600 text-sm">Ups. {error}</p>
+      )}
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="w-full rounded-xl bg-primary text-primary-foreground h-12 font-semibold disabled:opacity-50"
       >
-        Nachricht senden
-      </Button>
+        {status === "sending" ? "Sende..." : "Nachricht senden"}
+      </button>
     </form>
   );
 }
+
