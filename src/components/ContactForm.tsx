@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FORM_ENDPOINT = "https://formspree.io/f/XXXXXXXX"; // <-- tu endpoint de Formspree
+const FORM_ENDPOINT = "https://formspree.io/f/xvgbzzyb"; // <-- tu endpoint real
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle"|"sending"|"ok"|"error">("idle");
@@ -65,9 +65,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">
-          E-Mail (optional)
-        </label>
+        <label className="block text-sm font-medium mb-1">E-Mail (optional)</label>
         <input
           type="email"
           name="email"
