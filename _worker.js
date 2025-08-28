@@ -1,26 +1,22 @@
-// _worker.ts — Pages Advanced Mode
-
-export interface Env {
-  RESEND_API_KEY: string;
-  CONTACT_TO: string;
-  CONTACT_FROM: string;
-  ASSETS: Fetcher; // estático de Pages
-}
+// _worker.js — Pages Advanced Mode (JS)
 
 export default {
-  async fetch(request, env): Promise<Response> {
+  async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Endpoint del formulario
+    // Salud de vida: GET /api/ping => "pong"
+    if (url.pathname === "/api/ping") {
+      return new Response("pong", { status: 200 });
+    }
+
+    // Form endpoint
     if (url.pathname === "/api/contact") {
       if (request.method !== "POST") {
         return new Response("Method Not Allowed", { status: 405 });
       }
       try {
         const body = await request.json().catch(() => null);
-        const { name, phone, email, message } = (body ?? {}) as {
-          name?: string; phone?: string; email?: string; message?: string;
-        };
+        const { name, phone, email, message } = body || {};
 
         if (!name || !phone || !message) {
           return new Response("Felder fehlen.", { status: 400 });
@@ -42,8 +38,8 @@ export default {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: env.CONTACT_FROM,   // ej: "Website <onboarding@resend.dev>"
-            to: [env.CONTACT_TO],     // tu email destino
+            from: env.CONTACT_FROM,
+            to: [env.CONTACT_TO],
             subject: "Neue Website-Anfrage",
             html,
           }),
@@ -54,25 +50,20 @@ export default {
           return new Response(`Mail-Fehler: ${txt}`, { status: 500 });
         }
 
-        return json({ ok: true });
-      } catch (e: any) {
-        return new Response(`Fehler: ${e?.message || "Unbekannt"}`, { status: 500 });
+        return new Response(JSON.stringify({ ok: true }), {
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (e) {
+        return new Response(`Fehler: ${e && e.message ? e.message : "Unbekannt"}`, { status: 500 });
       }
     }
 
-    // Todo lo demás: sirve los archivos estáticos
+    // Estáticos de Pages
     return env.ASSETS.fetch(request);
   },
 };
 
-function json(data: unknown, init: ResponseInit = {}) {
-  return new Response(JSON.stringify(data), {
-    headers: { "Content-Type": "application/json", ...(init.headers || {}) },
-    ...init,
-  });
-}
-
-function esc(s: string) {
+function esc(s) {
   return String(s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;")
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;")
