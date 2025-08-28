@@ -1,29 +1,30 @@
 import { useState } from "react";
-import { Phone, Download, MessageCircle, Share2, Wifi, Monitor, Smartphone, Printer, Tv, Home, GraduationCap } from "lucide-react";
+import { Phone, Download, Share2, Wifi, Monitor, Smartphone, Printer, Tv, Home, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ContactForm } from "@/components/ContactForm";
 
 const Index = () => {
-  const [shareSupported, setShareSupported] = useState(typeof navigator !== 'undefined' && 'share' in navigator);
-  
+  const [shareSupported] = useState(typeof navigator !== "undefined" && "share" in navigator);
+
   const whatsappUrl = "https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe.";
   const phoneUrl = "tel:+4915565029989";
   const vcardUrl = "/assets/martin.vcf";
-  
+
   const shareWebsite = async () => {
-    if (shareSupported) {
+    const href = typeof window !== "undefined" ? window.location.href : "";
+    if (shareSupported && typeof navigator !== "undefined" && "share" in navigator) {
       try {
-        await navigator.share({
-          title: 'Technikhilfe Martin Köln',
-          url: window.location.href
+        await (navigator as any).share({
+          title: "Technikhilfe Martin Köln",
+          url: href,
         });
       } catch (err) {
-        // Fallback to WhatsApp share
-        window.open(`https://wa.me/?text=${encodeURIComponent(window.location.href)}`, '_blank');
+        // fallback to WhatsApp share
+        window.open(`https://wa.me/?text=${encodeURIComponent(href)}`, "_blank");
       }
     } else {
-      window.open(`https://wa.me/?text=${encodeURIComponent(window.location.href)}`, '_blank');
+      window.open(`https://wa.me/?text=${encodeURIComponent(href)}`, "_blank");
     }
   };
 
@@ -31,63 +32,65 @@ const Index = () => {
     {
       icon: <Wifi className="w-8 h-8" />,
       title: "WLAN & Internet",
-      description: "Router, Repeater, langsames WLAN beheben."
+      description: "Router, Repeater, langsames WLAN beheben.",
     },
     {
       icon: <Monitor className="w-8 h-8" />,
       title: "PC & Mac",
-      description: "Einrichtung, Updates, Malware-Check, Sicherung."
+      description: "Einrichtung, Updates, Malware-Check, Sicherung.",
     },
     {
       icon: <Smartphone className="w-8 h-8" />,
       title: "Smartphone & Tablet",
-      description: "Apps, E-Mail, Fotos, WhatsApp, Backups."
+      description: "Apps, E-Mail, Fotos, WhatsApp, Backups.",
     },
     {
       icon: <Printer className="w-8 h-8" />,
       title: "Drucker & Scanner",
-      description: "Installation, WLAN-Druck, Fehlermeldungen."
+      description: "Installation, WLAN-Druck, Fehlermeldungen.",
     },
     {
       icon: <Tv className="w-8 h-8" />,
       title: "TV & Streaming",
-      description: "Sender, Smart-TV, Mediatheken."
+      description: "Sender, Smart-TV, Mediatheken.",
     },
     {
       icon: <Home className="w-8 h-8" />,
       title: "Smart Home",
-      description: "Grundeinrichtung, sichere Nutzung."
+      description: "Grundeinrichtung, sichere Nutzung.",
     },
     {
       icon: <GraduationCap className="w-8 h-8" />,
       title: "Schulung",
-      description: "Schritt für Schritt, geduldig."
-    }
+      description: "Schritt für Schritt, geduldig.",
+    },
   ];
 
   const steps = [
     {
       number: "1",
       title: "Termin vereinbaren",
-      description: "WhatsApp schreiben oder anrufen. Wir finden schnell einen Termin."
+      description: "WhatsApp schreiben oder anrufen. Wir finden schnell einen Termin.",
     },
     {
-      number: "2", 
+      number: "2",
       title: "Vor Ort helfen",
-      description: "Einrichten, prüfen, erklären in Ruhe – ohne Fachjargon."
+      description: "Einrichten, prüfen, erklären in Ruhe – ohne Fachjargon.",
     },
     {
       number: "3",
       title: "Fertig & entspannt",
-      description: "Alles läuft. Sie nutzen Ihre Technik stressfrei."
-    }
+      description: "Alles läuft. Sie nutzen Ihre Technik stressfrei.",
+    },
   ];
+
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
 
   return (
     <div className="min-h-screen bg-background">
       {/* Fixed WhatsApp Button */}
       <WhatsAppButton />
-      
+
       {/* Header/Hero Section */}
       <header className="bg-primary text-primary-foreground py-12">
         <div className="container">
@@ -99,37 +102,28 @@ const Index = () => {
               <h2 className="text-xl mb-6 opacity-90">
                 Hilfe bei Computer, WLAN, Smartphone, Drucker und TV – direkt bei Ihnen zuhause.
               </h2>
-              
-              <div className="flex flex-wrap gap-4">
-                <Button 
-                  asChild
-                  variant="secondary"
-                  className="inline-flex items-center"
-                  style={{ minHeight: '44px' }}
-                >
-                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="Per WhatsApp schreiben">
-                    <MessageCircle className="w-5 h-5 mr-2" />
-                    Per WhatsApp schreiben
-                  </a>
-                </Button>
-                
-                <Button 
+
+              <div className="flex flex-wrap gap-4 items-center">
+                {/* Reemplazamos el anchor gris por tu componente */}
+                <WhatsAppButton mobile className="!px-4 !py-2" />
+
+                <Button
                   asChild
                   variant="outline"
                   className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
-                  style={{ minHeight: '44px' }}
+                  style={{ minHeight: "44px" }}
                 >
                   <a href={phoneUrl} aria-label="Anrufen">
                     <Phone className="w-5 h-5 mr-2" />
                     Anrufen
                   </a>
                 </Button>
-                
-                <Button 
+
+                <Button
                   asChild
                   variant="outline"
                   className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
-                  style={{ minHeight: '44px' }}
+                  style={{ minHeight: "44px" }}
                 >
                   <a href={vcardUrl} download aria-label="vCard speichern">
                     <Download className="w-5 h-5 mr-2" />
@@ -138,16 +132,14 @@ const Index = () => {
                 </Button>
               </div>
             </div>
-            
+
             <div className="text-center">
-              <img 
-                src="/assets/qr-whatsapp.svg" 
-                alt="QR-Code für WhatsApp-Kontakt" 
+              <img
+                src="/assets/qr-whatsapp.svg"
+                alt="QR-Code für WhatsApp-Kontakt"
                 className="w-48 h-48 mx-auto mb-4 bg-white p-4 rounded-lg"
               />
-              <p className="text-sm opacity-80">
-                Kamera öffnen → QR anvisieren → Link antippen.
-              </p>
+              <p className="text-sm opacity-80">Kamera öffnen → QR anvisieren → Link antippen.</p>
             </div>
           </div>
         </div>
@@ -157,11 +149,7 @@ const Index = () => {
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border p-4 z-40">
         <div className="flex gap-2">
           <WhatsAppButton mobile className="flex-1 rounded-lg py-3" />
-          <Button 
-            asChild
-            variant="outline"
-            className="flex-1 rounded-lg py-3"
-          >
+          <Button asChild variant="outline" className="flex-1 rounded-lg py-3">
             <a href={phoneUrl} aria-label="Anrufen">
               <Phone className="w-5 h-5 mr-2" />
               Anrufen
@@ -195,17 +183,13 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {services.map((service, index) => (
               <div key={index} className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
-                <div className="text-primary mb-4">
-                  {service.icon}
-                </div>
+                <div className="text-primary mb-4">{service.icon}</div>
                 <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
                 <p className="text-muted-foreground">{service.description}</p>
               </div>
             ))}
           </div>
-          <p className="text-center text-muted-foreground">
-            Markenunabhängig. Erklärungen in einfachem Deutsch.
-          </p>
+          <p className="text-center text-muted-foreground">Markenunabhängig. Erklärungen in einfachem Deutsch.</p>
         </div>
       </section>
 
@@ -247,10 +231,16 @@ const Index = () => {
                   <strong>Telefon:</strong> +49 1556 5029989
                 </div>
                 <div>
-                  <strong>E-Mail:</strong> <a href="mailto:pleinto@proton.me" className="text-primary hover:underline">pleinto@proton.me</a>
+                  <strong>E-Mail:</strong>{" "}
+                  <a href="mailto:pleinto@proton.me" className="text-primary hover:underline">
+                    pleinto@proton.me
+                  </a>
                 </div>
                 <div>
-                  <strong>WhatsApp:</strong> <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Direkt schreiben</a>
+                  <strong>WhatsApp:</strong>{" "}
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    Direkt schreiben
+                  </a>
                 </div>
                 <div>
                   <strong>Einsatzgebiet:</strong> Köln und Umgebung
@@ -259,7 +249,7 @@ const Index = () => {
                   <strong>Zeiten:</strong> Nach Vereinbarung, meist Mo–Fr 9–18 Uhr
                 </div>
               </div>
-              
+
               <div className="mt-8 p-4 bg-muted rounded-lg">
                 <p className="text-sm">
                   <strong>Hinweis:</strong> Wenn ich im Termin bin, rufe ich zurück.
@@ -269,7 +259,7 @@ const Index = () => {
                 </p>
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-xl font-semibold mb-6">Nachricht senden</h3>
               <ContactForm />
@@ -284,13 +274,9 @@ const Index = () => {
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl font-bold mb-6">Zufrieden? Empfehlen Sie mich weiter.</h2>
             <p className="mb-6">
-              Teilen Sie diesen Link mit Familie oder Freunden: <strong>{window.location.origin}</strong>
+              Teilen Sie diesen Link mit Familie oder Freunden: <strong>{origin}</strong>
             </p>
-            <Button 
-              onClick={shareWebsite}
-              className="inline-flex items-center"
-              style={{ minHeight: '44px' }}
-            >
+            <Button onClick={shareWebsite} className="inline-flex items-center" style={{ minHeight: "44px" }}>
               <Share2 className="w-5 h-5 mr-2" />
               Link per WhatsApp teilen
             </Button>
@@ -303,12 +289,14 @@ const Index = () => {
         <div className="container">
           <div className="text-center">
             <div className="flex flex-wrap justify-center gap-6 mb-6">
-              <a href="#impressum" className="text-muted-foreground hover:text-foreground">Impressum</a>
-              <a href="#datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutzerklärung</a>
+              <a href="#impressum" className="text-muted-foreground hover:text-foreground">
+                Impressum
+              </a>
+              <a href="#datenschutz" className="text-muted-foreground hover:text-foreground">
+                Datenschutzerklärung
+              </a>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.
-            </p>
+            <p className="text-sm text-muted-foreground">Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.</p>
           </div>
         </div>
       </footer>
