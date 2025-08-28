@@ -1,27 +1,44 @@
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
-  setStatus("sending");
-  setError(null);
+// src/components/ContactForm.tsx
+// Formulario “tonto” que hace POST directo a Formspree.
+// No usa hooks ni fetch, compila siempre, y envía correos.
+export function ContactForm() {
+  return (
+    <form
+      action="https://formspree.io/f/xvgbzzyb"  // <-- tu endpoint
+      method="POST"
+      className="space-y-4"
+    >
+      {/* honeypot anti-bots */}
+      <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+      {/* asunto opcional */}
+      <input type="hidden" name="_subject" value="Neue Website-Anfrage" />
+      {/* redirección opcional después de enviar
+      <input type="hidden" name="_next" value="https://koeln-tech-helfer.pages.dev/?sent=1" />
+      */}
 
-  const form = e.currentTarget;
-  const formData = new FormData(form);
+      <div>
+        <label className="block text-sm font-medium mb-1">Name *</label>
+        <input name="name" required className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
+      </div>
 
-  try {
-    const res = await fetch(FORM_ENDPOINT, {
-      method: "POST",
-      body: formData, // 👈 Mandamos FormData en lugar de JSON
-    });
+      <div>
+        <label className="block text-sm font-medium mb-1">Telefon *</label>
+        <input name="phone" required className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
+      </div>
 
-    if (!res.ok) {
-      const txt = await res.text();
-      throw new Error(txt || "Fehler beim Senden.");
-    }
+      <div>
+        <label className="block text-sm font-medium mb-1">E-Mail (optional)</label>
+        <input type="email" name="email" className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
+      </div>
 
-    setStatus("ok");
-    form.reset();
-  } catch (err: any) {
-    setStatus("error");
-    setError(err?.message || "Fehler beim Senden.");
-  }
+      <div>
+        <label className="block text-sm font-medium mb-1">Nachricht *</label>
+        <textarea name="message" required rows={4} className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
+      </div>
+
+      <button type="submit" className="w-full rounded-xl bg-primary text-primary-foreground h-12 font-semibold">
+        Nachricht senden
+      </button>
+    </form>
+  );
 }
-
