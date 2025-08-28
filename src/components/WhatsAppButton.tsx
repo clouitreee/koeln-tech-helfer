@@ -1,29 +1,35 @@
 interface WhatsAppButtonProps {
   className?: string;
-  mobile?: boolean; // true = botón con texto; false = flotante
+  mobile?: boolean;         // true = botón con texto; false = flotante
+  label?: string;           // texto del botón (solo mobile)
+  size?: "sm" | "md";       // alto del botón (solo mobile)
 }
 
 export function WhatsAppButton({
   className = "",
   mobile = false,
+  label = "Nachricht",      // texto corto por defecto
+  size = "md",
 }: WhatsAppButtonProps) {
   const whatsappUrl =
     "https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe.";
 
   if (mobile) {
-    // Botón con texto (CTA)
+    const height = size === "md" ? "44px" : "40px";
+
     return (
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Per WhatsApp schreiben"
-        className={`inline-flex items-center justify-center font-medium px-4 py-2 rounded-lg transition-colors hover:opacity-90 text-sm ${className}`}
+        className={`inline-flex items-center justify-center font-medium rounded-lg transition-colors hover:opacity-90 text-sm ${className}`}
         style={{
-          minHeight: "44px",
+          minHeight: height,
           minWidth: "44px",
           backgroundColor: "#25D366",
           color: "white",
+          padding: "0 12px",
         }}
       >
         <img
@@ -32,12 +38,12 @@ export function WhatsAppButton({
           aria-hidden="true"
           className="w-5 h-5 shrink-0"
         />
-        <span className="ml-2">Per WhatsApp schreiben</span>
+        <span className="ml-2">{label}</span>
       </a>
     );
   }
 
-  // Flotante
+  // Flotante redondo
   return (
     <a
       href={whatsappUrl}
