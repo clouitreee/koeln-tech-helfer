@@ -219,15 +219,23 @@ const Index = () => {
         </div>
       </section>
 
-            {/* Footer */}
+                        {/* Footer */}
       <footer id="rechtliches" className="py-12 bg-muted">
         <div className="container">
           <div className="text-center">
             <div className="flex flex-wrap justify-center gap-6 mb-6">
-              <a href="/impressum.html" className="text-muted-foreground hover:text-foreground">Impressum</a>
-              <a href="/datenschutz.html" className="text-muted-foreground hover:text-foreground">Datenschutzerklärung</a>
+              <a href="/impressum" className="text-muted-foreground hover:text-foreground">Impressum</a>
+              <a href="/datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutzerklärung</a>
             </div>
             <p className="text-sm text-muted-foreground">Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.</p>
           </div>
         </div>
       </footer>
+
+      {/* Padding inferior para que el sticky no tape contenido */}
+      <div className="md:hidden h-20" />
+    </div>
+  );
+};
+
+export default Index;
