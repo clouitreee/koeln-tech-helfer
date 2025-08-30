@@ -47,7 +47,7 @@ const Index = () => {
   ];
 
   const steps = [
-    { number: "1", title: "Termin vereinbaren", description: "Per WhatsApp schreiben. Wir finden schnell einen Termin." },
+    { number: "1", title: "Termin vereinbaren", description: "Per WhatsApp schreiben oder E-Mail senden. Wir finden schnell einen Termin." },
     { number: "2", title: "Vor Ort helfen", description: "Einrichten, prüfen, erklären in Ruhe – ohne Fachjargon." },
     { number: "3", title: "Fertig & entspannt", description: "Alles läuft. Sie nutzen Ihre Technik stressfrei." },
   ];
@@ -69,8 +69,9 @@ const Index = () => {
                 Hilfe bei Computer, WLAN, Smartphone, Drucker und TV – direkt bei Ihnen zuhause.
               </h2>
 
-              {/* CTA WhatsApp */}
+              {/* CTA WhatsApp y E-Mail */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                {/* WhatsApp */}
                 <Button
                   asChild
                   className="inline-flex items-center rounded-full px-5 md:px-6 py-3 text-base md:text-lg font-semibold shadow-soft"
@@ -96,15 +97,29 @@ const Index = () => {
                   </a>
                 </Button>
 
-                <p className="text-sm md:text-base opacity-90">
-                  oder per E-Mail:{" "}
+                {/* E-Mail */}
+                <Button
+                  asChild
+                  className="inline-flex items-center rounded-full px-5 md:px-6 py-3 text-base md:text-lg font-semibold shadow-soft"
+                  style={{
+                    minHeight: "44px",
+                    backgroundColor: "#2563EB", // Azul claro
+                    color: "#ffffff",
+                  }}
+                >
                   <a
                     href="mailto:info@claveon.de"
-                    className="text-foreground font-medium no-underline hover:underline hover:underline-offset-4 hover:decoration-2"
+                    aria-label="E-Mail schreiben"
+                    className="no-underline"
                   >
-                    info@claveon.de
+                    <img
+                      src="/assets/mail.svg"
+                      alt="E-Mail"
+                      className="w-5 h-5 mr-2 inline-block align-middle"
+                    />
+                    E-Mail
                   </a>
-                </p>
+                </Button>
               </div>
             </div>
 
@@ -122,37 +137,6 @@ const Index = () => {
           </div>
         </div>
       </header>
-
-      {/* Sticky CTA móvil: solo WhatsApp */}
-      <div className="md:hidden fixed inset-x-0 bottom-0 z-40">
-        <div
-          className="mx-auto w-full max-w-screen-sm px-4 pt-3 border-t border-border bg-card/95 backdrop-blur"
-          style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)" }}
-        >
-          <div className="flex gap-2">
-            <Button
-              asChild
-              className="flex-1 rounded-lg text-center"
-              style={{
-                minHeight: "44px",
-                backgroundColor: "#25D366",
-                color: "#ffffff",
-              }}
-            >
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-                <img
-                  src="/assets/whatsapp.svg"
-                  alt="WhatsApp"
-                  className="w-5 h-5 mr-2 inline-block align-middle"
-                />
-                WhatsApp
-              </a>
-            </Button>
-          </div>
-        </div>
-      </div>
-      {/* espacio para que el sticky no tape contenido */}
-      <div className="md:hidden" style={{ height: "calc(env(safe-area-inset-bottom) + 84px)" }} />
 
       {/* PASOS */}
       <section id="arbeitsweise" className="py-14 md:py-16 bg-card">
@@ -280,7 +264,6 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* espacio extra móvil por el sticky */}
       <div className="md:hidden h-20" />
     </div>
   );
