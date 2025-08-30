@@ -2,19 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Technikhilfe Martin Köln Design System */
+/* ──────────────────────────────────────────────────────────────
+   Technikhilfe Martin Köln · Design System (Tailwind + CSS Vars)
+   Legible, con buen contraste y foco accesible.
+   ────────────────────────────────────────────────────────────── */
 
 @layer base {
   :root {
-    /* Brand Colors */
+    /* Brand */
     --color-bg: 213 33% 97%;
     --color-surface: 0 0% 100%;
     --color-text: 220 39% 8%;
-    --color-primary: 215 100% 19%;
+    --color-primary: 215 100% 19%; /* navy */
     --color-line: 218 19% 91%;
     --color-accent: 142 76% 49%;
-    
-    /* Semantic mappings */
+
+    /* Semantic mapping (shadcn-style) */
     --background: var(--color-bg);
     --foreground: var(--color-text);
     --card: var(--color-surface);
@@ -34,8 +37,8 @@
     --border: var(--color-line);
     --input: var(--color-line);
     --ring: var(--color-primary);
-    
-    /* Design tokens */
+
+    /* Tokens */
     --radius: 16px;
     --space-1: 8px;
     --space-2: 16px;
@@ -43,22 +46,26 @@
     --space-4: 32px;
     --space-5: 48px;
     --container: 1040px;
-    
-    /* Typography */
-    --font-system: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+    /* Type */
+    --font-system: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+      Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   }
-  
+
   @media (prefers-reduced-motion: reduce) {
     * {
       animation: none !important;
       transition: none !important;
+      scroll-behavior: auto !important;
     }
   }
-}
 
-@layer base {
   * {
     @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
@@ -66,28 +73,114 @@
     font-family: var(--font-system);
     font-size: 18px;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
+
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.3;
     font-weight: 600;
+    letter-spacing: -0.01em;
   }
-  
-  h1 {
-    font-size: clamp(32px, 5vw, 40px);
-  }
-  
-  h2 {
-    font-size: clamp(24px, 4vw, 28px);
-  }
-  
+
+  h1 { font-size: clamp(32px, 5vw, 40px); }
+  h2 { font-size: clamp(24px, 4vw, 28px); }
+  h3 { font-size: clamp(20px, 3vw, 22px); }
+
   .container {
     max-width: var(--container);
-    margin: 0 auto;
-    padding: 0 var(--space-2);
+    margin-inline: auto;
+    padding-inline: var(--space-2);
   }
+
+  /* Enlaces visibles y con foco */
+  a {
+    color: hsl(var(--primary));
+    text-underline-offset: 3px;
+  }
+  a:hover { filter: brightness(1.1); }
+  a:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Components: cards, botones, campos de formulario, etc.
+   ────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Card */
+  .card {
+    @apply bg-card text-foreground rounded-2xl border border-border shadow-sm;
+  }
+
+  /* Botones */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-3 font-semibold transition;
+  }
+  .btn-primary {
+    color: hsl(var(--primary-foreground));
+    background-color: hsl(var(--primary));
+  }
+  .btn-primary:hover { filter: brightness(1.07); }
+  .btn-outline {
+    @apply border;
+    color: hsl(var(--primary));
+    background-color: transparent;
+    border-color: hsl(var(--primary));
+  }
+  .btn-outline:hover {
+    background-color: hsl(var(--primary) / 0.06);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: hsl(var(--foreground));
+  }
+
+  /* Formularios con contraste y foco accesible */
+  .form-label {
+    @apply block mb-2 font-medium text-foreground;
+  }
+  .form-field {
+    @apply w-full rounded-xl bg-white border border-border px-3 py-3 leading-6;
+    box-shadow: 0 1px 2px rgba(16,24,40,.06);
+  }
+  .form-field::placeholder { @apply text-muted-foreground; }
+  .form-field:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 0 4px hsl(var(--primary));
+  }
+  .form-help  { @apply text-sm text-muted-foreground; }
+  .form-error { @apply mt-1 text-sm; color: hsl(var(--destructive)); }
+
+  /* Secciones con espaciado coherente */
+  .section    { padding: var(--space-5) 0; }
+  .section-sm { padding: var(--space-3) 0; }
+
+  /* Cabecera “hero” legible sobre fondo primario */
+  .hero {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  .hero a {
+    color: hsl(var(--primary-foreground));
+    text-decoration: underline;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Utilities: sombras, radios, wrappers
+   ────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px rgba(16,24,40,.06),
+      0 1px 3px rgba(16,24,40,.10);
+  }
+  .rounded-xl-clip { border-radius: var(--radius); }
+  .wrap { max-width: var(--container); margin-inline: auto; padding-inline: var(--space-2); }
 }

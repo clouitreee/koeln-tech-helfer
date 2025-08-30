@@ -1,14 +1,22 @@
 import { useState } from "react";
-import { Phone, Download, Share2, Wifi, Monitor, Smartphone, Printer, Tv, Home, GraduationCap } from "lucide-react";
+import {
+  Share2,
+  Wifi,
+  Monitor,
+  Smartphone,
+  Printer,
+  Tv,
+  Home,
+  GraduationCap,
+  MessageCircle, // icono válido en lucide-react
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-// Botón flotante eliminado: import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ContactForm } from "@/components/ContactForm";
 
 const Index = () => {
-  const [shareSupported] = useState(typeof navigator !== "undefined" && "share" in navigator);
-
-  const phoneUrl = "tel:+4915565029989";
-  const vcardUrl = "/assets/martin.vcf";
+  const [shareSupported] = useState(
+    typeof navigator !== "undefined" && "share" in navigator
+  );
 
   const shareWebsite = async () => {
     const href = typeof window !== "undefined" ? window.location.href : "";
@@ -37,7 +45,7 @@ const Index = () => {
   ];
 
   const steps = [
-    { number: "1", title: "Termin vereinbaren", description: "WhatsApp schreiben oder anrufen. Wir finden schnell einen Termin." },
+    { number: "1", title: "Termin vereinbaren", description: "WhatsApp schreiben. Wir finden schnell einen Termin." },
     { number: "2", title: "Vor Ort helfen", description: "Einrichten, prüfen, erklären in Ruhe – ohne Fachjargon." },
     { number: "3", title: "Fertig & entspannt", description: "Alles läuft. Sie nutzen Ihre Technik stressfrei." },
   ];
@@ -46,49 +54,46 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Botón flotante WhatsApp ELIMINADO */}
-      {/* <WhatsAppButton /> */}
-
       {/* Header/Hero */}
-      <header className="bg-primary text-primary-foreground py-12">
+      <header className="hero py-12">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h1 className="text-4xl font-bold mb-4">Technikhilfe in Köln – schnell, freundlich, zuverlässig.</h1>
-              <h2 className="text-xl mb-6 opacity-90">Hilfe bei Computer, WLAN, Smartphone, Drucker und TV – direkt bei Ihnen zuhause.</h2>
+              <h1 className="text-4xl font-bold mb-4">
+                Technikhilfe in Köln – schnell, freundlich, zuverlässig.
+              </h1>
+              <h2 className="text-xl mb-6 opacity-90">
+                Hilfe bei Computer, WLAN, Smartphone, Drucker und TV – direkt bei Ihnen zuhause.
+              </h2>
 
-              <div className="flex flex-wrap gap-4 items-center">
-                {/* CTA WhatsApp visible, no flotante */}
-                <Button asChild className="inline-flex items-center" style={{ minHeight: "44px" }}>
-                  <a href="https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe." target="_blank" rel="noopener noreferrer" aria-label="Per WhatsApp schreiben">
-                    <Share2 className="w-5 h-5 mr-2" />
+              {/* CTA principal: solo WhatsApp */}
+              <div className="flex flex-wrap gap-4 items-center justify-start">
+                <Button
+                  asChild
+                  className="inline-flex items-center rounded-full px-6 py-3 text-lg font-semibold"
+                  style={{
+                    minHeight: "44px",
+                    backgroundColor: "#25D366",
+                    color: "#ffffff",
+                  }}
+                >
+                  <a
+                    href="https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Per WhatsApp schreiben"
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
                     WhatsApp
                   </a>
                 </Button>
 
-                <Button
-                  asChild
-                  variant="outline"
-                  className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
-                  style={{ minHeight: "44px" }}
-                >
-                  <a href={phoneUrl} aria-label="Anrufen">
-                    <Phone className="w-5 h-5 mr-2" />
-                    Anrufen
+                <p className="text-sm opacity-90 ml-2">
+                  oder per E-Mail:{" "}
+                  <a href="mailto:info@claveon.de" className="underline">
+                    info@claveon.de
                   </a>
-                </Button>
-
-                <Button
-                  asChild
-                  variant="outline"
-                  className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
-                  style={{ minHeight: "44px" }}
-                >
-                  <a href={vcardUrl} download aria-label="vCard speichern">
-                    <Download className="w-5 h-5 mr-2" />
-                    vCard speichern
-                  </a>
-                </Button>
+                </p>
               </div>
             </div>
 
@@ -104,22 +109,25 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Mobile Sticky CTA (se mantiene, no es el botón flotante de la esquina) */}
+      {/* Mobile Sticky CTA (solo WhatsApp) */}
       <div className="md:hidden fixed inset-x-0 bottom-0 z-40">
         <div
           className="mx-auto w-full max-w-screen-sm px-4 pt-3 border-t border-border bg-card/95 backdrop-blur"
           style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)" }}
         >
           <div className="flex gap-2">
-            <Button asChild className="flex-1 rounded-lg text-center" style={{ minHeight: "44px" }}>
-              <a href="https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe." target="_blank" rel="noopener noreferrer">
+            <Button
+              asChild
+              className="flex-1 rounded-lg text-center"
+              style={{ minHeight: "44px", backgroundColor: "#25D366", color: "#ffffff" }}
+            >
+              <a
+                href="https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="w-5 h-5 mr-2 inline-block" />
                 WhatsApp
-              </a>
-            </Button>
-            <Button asChild variant="outline" className="flex-1 rounded-lg text-center" style={{ minHeight: "44px" }}>
-              <a href={phoneUrl} aria-label="Anrufen">
-                <Phone className="w-5 h-5 mr-2" />
-                Anrufen
               </a>
             </Button>
           </div>
@@ -194,11 +202,9 @@ const Index = () => {
       <section id="kontakt" className="py-16">
         <div className="container">
           <h2 className="text-center text-3xl font-bold mb-12">Kontakt</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="md:col-span-2">
-              <h3 className="text-xl font-semibold mb-6">Nachricht senden</h3>
-              <ContactForm />
-            </div>
+          <div className="md:col-span-2">
+            <h3 className="text-xl font-semibold mb-6">Nachricht senden</h3>
+            <ContactForm />
           </div>
         </div>
       </section>
@@ -219,7 +225,7 @@ const Index = () => {
         </div>
       </section>
 
-                        {/* Footer */}
+      {/* Footer */}
       <footer id="rechtliches" className="py-12 bg-muted">
         <div className="container">
           <div className="text-center">
@@ -227,7 +233,9 @@ const Index = () => {
               <a href="/impressum" className="text-muted-foreground hover:text-foreground">Impressum</a>
               <a href="/datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutzerklärung</a>
             </div>
-            <p className="text-sm text-muted-foreground">Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.</p>
+            <p className="text-sm text-muted-foreground">
+              Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.
+            </p>
           </div>
         </div>
       </footer>
