@@ -85,9 +85,10 @@ const Index = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Per WhatsApp schreiben"
+                    className="no-underline"
                   >
                     <img
-                      src="/assets/Whatsapp-Icon.svg"
+                      src="/assets/whatsapp.svg"   {/* <= AQUÍ usamos tu archivo */}
                       alt="WhatsApp"
                       className="w-5 h-5 mr-2 inline-block align-middle"
                     />
@@ -99,7 +100,7 @@ const Index = () => {
                   oder per E-Mail:{" "}
                   <a
                     href="mailto:info@claveon.de"
-                    className="text-primary no-underline hover:underline"
+                    className="text-primary no-underline hover:underline hover:underline-offset-4 hover:decoration-2"
                   >
                     info@claveon.de
                   </a>
@@ -138,9 +139,9 @@ const Index = () => {
                 color: "#ffffff",
               }}
             >
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="no-underline">
                 <img
-                  src="/assets/Whatsapp-Icon.svg"
+                  src="/assets/whatsapp.svg"
                   alt="WhatsApp"
                   className="w-5 h-5 mr-2 inline-block align-middle"
                 />
