@@ -69,7 +69,6 @@ const Index = () => {
                 Hilfe bei Computer, WLAN, Smartphone, Drucker und TV – direkt bei Ihnen zuhause.
               </h2>
 
-              {/* CTA WhatsApp con tu icono */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                 <Button
                   asChild
@@ -88,7 +87,7 @@ const Index = () => {
                     className="no-underline"
                   >
                     <img
-                      src="/assets/whatsapp.svg"   {/* <= AQUÍ usamos tu archivo */}
+                      src="/assets/whatsapp.svg"
                       alt="WhatsApp"
                       className="w-5 h-5 mr-2 inline-block align-middle"
                     />
@@ -151,7 +150,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-      {/* padding inferior para que el sticky no tape contenido */}
       <div className="md:hidden" style={{ height: "calc(env(safe-area-inset-bottom) + 84px)" }} />
 
       {/* PASOS */}
@@ -228,11 +226,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CONTACTO: solo formulario */}
+      {/* CONTACTO */}
       <section id="kontakt" className="py-14 md:py-16">
         <div className="container">
           <h2 className="text-center text-2xl md:text-3xl font-bold mb-8 md:mb-12">Kontakt</h2>
-          <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto">
             <h3 className="text-lg md:text-xl font-semibold mb-4 md:mb-6">Nachricht senden</h3>
             <ContactForm />
           </div>
@@ -280,7 +278,6 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Separador inferior para móviles (sticky) */}
       <div className="md:hidden h-20" />
     </div>
   );
