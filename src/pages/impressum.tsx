@@ -5,7 +5,9 @@ export default function Impressum() {
 
       <p>
         <strong>Verantwortlich nach § 5 TMG:</strong><br />
-        [Dein vollständiger Name]
+        Martin<br />
+        Liebigstraße<br />
+        50823 Köln
       </p>
 
       <p className="mt-2">

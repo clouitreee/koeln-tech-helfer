@@ -5,7 +5,9 @@ export default function Datenschutz() {
 
       <p>
         <strong>Verantwortlich:</strong><br />
-        [Dein vollständiger Name]<br />
+        Martin Lache<br />
+        Liebigstraße<br />
+        50823 Köln<br />
         E-Mail: info@claveon.de
       </p>
 
@@ -42,6 +44,20 @@ export default function Datenschutz() {
       <p>
         Nach DSGVO: Auskunft, Berichtigung, Löschung, Einschränkung der
         Verarbeitung. Kontakt: info@claveon.de
+      </p>
+
+      <h2 className="text-xl font-semibold mt-6">Beschwerderecht</h2>
+      <p>
+        Sie haben das Recht, sich bei einer Aufsichtsbehörde zu
+        beschweren. Zuständig ist insbesondere der{" "}
+        <a
+          className="underline"
+          href="https://www.ldi.nrw.de/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Landesbeauftragte für Datenschutz und Informationsfreiheit NRW
+        </a>.
       </p>
     </main>
   );
