@@ -69,6 +69,7 @@ const Index = () => {
                 Hilfe bei Computer, WLAN, Smartphone, Drucker und TV – direkt bei Ihnen zuhause.
               </h2>
 
+              {/* CTA WhatsApp */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                 <Button
                   asChild
@@ -99,7 +100,7 @@ const Index = () => {
                   oder per E-Mail:{" "}
                   <a
                     href="mailto:info@claveon.de"
-                    className="text-primary no-underline hover:underline hover:underline-offset-4 hover:decoration-2"
+                    className="text-foreground font-medium no-underline hover:underline hover:underline-offset-4 hover:decoration-2"
                   >
                     info@claveon.de
                   </a>
@@ -122,44 +123,36 @@ const Index = () => {
         </div>
       </header>
 
-     {/* CTA WhatsApp con tu icono */}
-<div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-  <Button
-    asChild
-    className="inline-flex items-center rounded-full px-5 md:px-6 py-3 text-base md:text-lg font-semibold shadow-soft"
-    style={{
-      minHeight: "44px",
-      backgroundColor: "#25D366",
-      color: "#ffffff",
-    }}
-  >
-    <a
-      href={whatsappHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Per WhatsApp schreiben"
-    >
-      <img
-        src="/assets/whatsapp.svg"
-        alt="WhatsApp"
-        className="w-5 h-5 mr-2 inline-block align-middle"
-      />
-      WhatsApp
-    </a>
-  </Button>
-
-  {/* Texto con enlace de e-mail — corregido */}
-  <p className="text-sm md:text-base opacity-90">
-    oder per E-Mail:{" "}
-    <a
-      href="mailto:info@claveon.de"
-      className="text-primary-foreground font-medium no-underline hover:underline hover:underline-offset-4 hover:decoration-2"
-    >
-      info@claveon.de
-    </a>
-  </p>
-</div>
-
+      {/* Sticky CTA móvil: solo WhatsApp */}
+      <div className="md:hidden fixed inset-x-0 bottom-0 z-40">
+        <div
+          className="mx-auto w-full max-w-screen-sm px-4 pt-3 border-t border-border bg-card/95 backdrop-blur"
+          style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)" }}
+        >
+          <div className="flex gap-2">
+            <Button
+              asChild
+              className="flex-1 rounded-lg text-center"
+              style={{
+                minHeight: "44px",
+                backgroundColor: "#25D366",
+                color: "#ffffff",
+              }}
+            >
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+                <img
+                  src="/assets/whatsapp.svg"
+                  alt="WhatsApp"
+                  className="w-5 h-5 mr-2 inline-block align-middle"
+                />
+                WhatsApp
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
+      {/* espacio para que el sticky no tape contenido */}
+      <div className="md:hidden" style={{ height: "calc(env(safe-area-inset-bottom) + 84px)" }} />
 
       {/* PASOS */}
       <section id="arbeitsweise" className="py-14 md:py-16 bg-card">
@@ -239,7 +232,7 @@ const Index = () => {
       <section id="kontakt" className="py-14 md:py-16">
         <div className="container">
           <h2 className="text-center text-2xl md:text-3xl font-bold mb-8 md:mb-12">Kontakt</h2>
-        <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <h3 className="text-lg md:text-xl font-semibold mb-4 md:mb-6">Nachricht senden</h3>
             <ContactForm />
           </div>
@@ -287,6 +280,7 @@ const Index = () => {
         </div>
       </footer>
 
+      {/* espacio extra móvil por el sticky */}
       <div className="md:hidden h-20" />
     </div>
   );
