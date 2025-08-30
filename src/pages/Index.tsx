@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Phone, Download, Share2, Wifi, Monitor, Smartphone, Printer, Tv, Home, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+// Botón flotante eliminado: import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ContactForm } from "@/components/ContactForm";
 
 const Index = () => {
   const [shareSupported] = useState(typeof navigator !== "undefined" && "share" in navigator);
 
-  const whatsappUrl = "https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe.";
   const phoneUrl = "tel:+4915565029989";
   const vcardUrl = "/assets/martin.vcf";
 
@@ -19,7 +18,7 @@ const Index = () => {
           title: "Technikhilfe Martin Köln",
           url: href,
         });
-      } catch (_) {
+      } catch {
         window.open(`https://wa.me/?text=${encodeURIComponent(href)}`, "_blank");
       }
     } else {
@@ -47,8 +46,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Botón flotante WhatsApp */}
-      <WhatsAppButton />
+      {/* Botón flotante WhatsApp ELIMINADO */}
+      {/* <WhatsAppButton /> */}
 
       {/* Header/Hero */}
       <header className="bg-primary text-primary-foreground py-12">
@@ -59,33 +58,38 @@ const Index = () => {
               <h2 className="text-xl mb-6 opacity-90">Hilfe bei Computer, WLAN, Smartphone, Drucker und TV – direkt bei Ihnen zuhause.</h2>
 
               <div className="flex flex-wrap gap-4 items-center">
-  <WhatsAppButton mobile label="Nachricht" size="md" />
+                {/* CTA WhatsApp visible, no flotante */}
+                <Button asChild className="inline-flex items-center" style={{ minHeight: "44px" }}>
+                  <a href="https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe." target="_blank" rel="noopener noreferrer" aria-label="Per WhatsApp schreiben">
+                    <Share2 className="w-5 h-5 mr-2" />
+                    WhatsApp
+                  </a>
+                </Button>
 
-  <Button
-    asChild
-    variant="outline"
-    className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
-    style={{ minHeight: "44px" }}
-  >
-    <a href={phoneUrl} aria-label="Anrufen">
-      <Phone className="w-5 h-5 mr-2" />
-      Anrufen
-    </a>
-  </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
+                  style={{ minHeight: "44px" }}
+                >
+                  <a href={phoneUrl} aria-label="Anrufen">
+                    <Phone className="w-5 h-5 mr-2" />
+                    Anrufen
+                  </a>
+                </Button>
 
-  <Button
-    asChild
-    variant="outline"
-    className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
-    style={{ minHeight: "44px" }}
-  >
-    <a href={vcardUrl} download aria-label="vCard speichern">
-      <Download className="w-5 h-5 mr-2" />
-      vCard speichern
-    </a>
-  </Button>
-</div>
-
+                <Button
+                  asChild
+                  variant="outline"
+                  className="inline-flex items-center bg-transparent border-white text-white hover:bg-white hover:text-primary"
+                  style={{ minHeight: "44px" }}
+                >
+                  <a href={vcardUrl} download aria-label="vCard speichern">
+                    <Download className="w-5 h-5 mr-2" />
+                    vCard speichern
+                  </a>
+                </Button>
+              </div>
             </div>
 
             <div className="text-center">
@@ -100,37 +104,36 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Mobile Sticky CTA (mejorado) */}
-<div className="md:hidden fixed inset-x-0 bottom-0 z-40">
-  <div
-    className="mx-auto w-full max-w-screen-sm px-4 pt-3 border-t border-border bg-card/95 backdrop-blur"
-    style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)" }}
-  >
-    <div className="flex gap-2">
-      <WhatsAppButton mobile label="Kontakt" size="md" className="flex-1 rounded-lg text-center" />
-      <Button asChild variant="outline" className="flex-1 rounded-lg text-center" style={{ minHeight: "44px" }}>
-        <a href={phoneUrl} aria-label="Anrufen">
-          <Phone className="w-5 h-5 mr-2" />
-          Anrufen
-        </a>
-      </Button>
-    </div>
-  </div>
-</div>
+      {/* Mobile Sticky CTA (se mantiene, no es el botón flotante de la esquina) */}
+      <div className="md:hidden fixed inset-x-0 bottom-0 z-40">
+        <div
+          className="mx-auto w-full max-w-screen-sm px-4 pt-3 border-t border-border bg-card/95 backdrop-blur"
+          style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)" }}
+        >
+          <div className="flex gap-2">
+            <Button asChild className="flex-1 rounded-lg text-center" style={{ minHeight: "44px" }}>
+              <a href="https://wa.me/4915565029989?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe." target="_blank" rel="noopener noreferrer">
+                WhatsApp
+              </a>
+            </Button>
+            <Button asChild variant="outline" className="flex-1 rounded-lg text-center" style={{ minHeight: "44px" }}>
+              <a href={phoneUrl} aria-label="Anrufen">
+                <Phone className="w-5 h-5 mr-2" />
+                Anrufen
+              </a>
+            </Button>
+          </div>
+        </div>
+      </div>
 
-{/* padding inferior acorde al sticky */}
-<div className="md:hidden" style={{ height: "calc(env(safe-area-inset-bottom) + 84px)" }} />
-
-
-{/* Padding inferior para que el sticky no tape contenido */}
-<div className="md:hidden" style={{ height: "calc(env(safe-area-inset-bottom) + 84px)" }} />
-
+      {/* padding inferior acorde al sticky */}
+      <div className="md:hidden" style={{ height: "calc(env(safe-area-inset-bottom) + 84px)" }} />
 
       {/* So arbeite ich */}
       <section id="arbeitsweise" className="py-16 bg-card">
         <div className="container">
           <h2 className="text-center text-3xl font-bold mb-12">So arbeite ich</h2>
-        <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {steps.map((s, i) => (
               <div key={i} className="text-center">
                 <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
@@ -187,34 +190,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Kontakt */}
+      {/* Kontakt: solo formulario */}
       <section id="kontakt" className="py-16">
         <div className="container">
           <h2 className="text-center text-3xl font-bold mb-12">Kontakt</h2>
           <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-xl font-semibold mb-6">Kontaktdaten</h3>
-              <div className="space-y-4">
-                <div><strong>Telefon:</strong> +49 1556 5029989</div>
-                <div>
-                  <strong>E-Mail:</strong>{" "}
-                  <a href="mailto:pleinto@proton.me" className="text-primary hover:underline">pleinto@proton.me</a>
-                </div>
-                <div>
-                  <strong>WhatsApp:</strong>{" "}
-                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Direkt schreiben</a>
-                </div>
-                <div><strong>Einsatzgebiet:</strong> Köln und Umgebung</div>
-                <div><strong>Zeiten:</strong> Nach Vereinbarung, meist Mo–Fr 9–18 Uhr</div>
-              </div>
-
-              <div className="mt-8 p-4 bg-muted rounded-lg">
-                <p className="text-sm"><strong>Hinweis:</strong> Wenn ich im Termin bin, rufe ich zurück.</p>
-                <p className="text-sm mt-2"><strong>Zahlung:</strong> Zahlung nach Termin. Details per WhatsApp.</p>
-              </div>
-            </div>
-
-            <div>
+            <div className="md:col-span-2">
               <h3 className="text-xl font-semibold mb-6">Nachricht senden</h3>
               <ContactForm />
             </div>
@@ -238,23 +219,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
+            {/* Footer */}
       <footer id="rechtliches" className="py-12 bg-muted">
         <div className="container">
           <div className="text-center">
             <div className="flex flex-wrap justify-center gap-6 mb-6">
-              <a href="#impressum" className="text-muted-foreground hover:text-foreground">Impressum</a>
-              <a href="#datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutzerklärung</a>
+              <a href="/impressum.html" className="text-muted-foreground hover:text-foreground">Impressum</a>
+              <a href="/datenschutz.html" className="text-muted-foreground hover:text-foreground">Datenschutzerklärung</a>
             </div>
             <p className="text-sm text-muted-foreground">Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.</p>
           </div>
         </div>
       </footer>
-
-      {/* Padding inferior para que el sticky no tape contenido */}
-      <div className="md:hidden h-20" />
-    </div>
-  );
-};
-
-export default Index;
