@@ -97,7 +97,10 @@ const Index = () => {
 
                 <p className="text-sm md:text-base opacity-90">
                   oder per E-Mail:{" "}
-                  <a href="mailto:info@claveon.de" className="underline">
+                  <a
+                    href="mailto:info@claveon.de"
+                    className="text-primary no-underline hover:underline"
+                  >
                     info@claveon.de
                   </a>
                 </p>

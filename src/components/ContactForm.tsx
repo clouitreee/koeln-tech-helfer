@@ -1,44 +1,49 @@
-// src/components/ContactForm.tsx
-// Formulario “tonto” que hace POST directo a Formspree.
-// No usa hooks ni fetch, compila siempre, y envía correos.
-export function ContactForm() {
+import { useForm } from "react-hook-form";
+
+type FormData = {
+  name: string;
+  message: string;
+};
+
+export const ContactForm = () => {
+  const { register, handleSubmit, reset } = useForm<FormData>();
+
+  const onSubmit = (data: FormData) => {
+    console.log("Form data:", data);
+    reset();
+    alert("Danke! Ihre Nachricht wurde gesendet.");
+  };
+
   return (
-    <form
-      action="https://formspree.io/f/xvgbzzyb"  // <-- tu endpoint
-      method="POST"
-      className="space-y-4"
-    >
-      {/* honeypot anti-bots */}
-      <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
-      {/* asunto opcional */}
-      <input type="hidden" name="_subject" value="Neue Website-Anfrage" />
-      {/* redirección opcional después de enviar
-      <input type="hidden" name="_next" value="https://koeln-tech-helfer.pages.dev/?sent=1" />
-      */}
-
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {/* Name */}
       <div>
-        <label className="block text-sm font-medium mb-1">Name *</label>
-        <input name="name" required className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
+        <label className="block mb-2 font-medium text-foreground">Name *</label>
+        <input
+          {...register("name", { required: true })}
+          className="w-full p-3 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          placeholder="Ihr Name"
+        />
       </div>
 
+      {/* Nachricht */}
       <div>
-        <label className="block text-sm font-medium mb-1">Telefon *</label>
-        <input name="phone" required className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
+        <label className="block mb-2 font-medium text-foreground">Nachricht *</label>
+        <textarea
+          {...register("message", { required: true })}
+          rows={4}
+          className="w-full p-3 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          placeholder="Worum geht es?"
+        />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium mb-1">E-Mail (optional)</label>
-        <input type="email" name="email" className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-1">Nachricht *</label>
-        <textarea name="message" required rows={4} className="w-full rounded-lg bg-muted px-4 py-3 outline-none" />
-      </div>
-
-      <button type="submit" className="w-full rounded-xl bg-primary text-primary-foreground h-12 font-semibold">
+      {/* Submit */}
+      <button
+        type="submit"
+        className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition"
+      >
         Nachricht senden
       </button>
     </form>
   );
-}
+};
