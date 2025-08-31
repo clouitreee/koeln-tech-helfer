@@ -1,37 +1,38 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
-import { resolve } from "path";
-import { copyFileSync, existsSync } from "fs";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [
-    react(),
-    mode === "development" && componentTagger(),
-    {
-      // Plugin para forzar copia de _redirects a dist/
-      name: "copy-redirects",
-      closeBundle() {
-        const src = resolve(__dirname, "public/_redirects");
-        const dest = resolve(__dirname, "dist/_redirects");
-        if (existsSync(src)) {
-          copyFileSync(src, dest);
-          console.log("✅ Copiado _redirects a dist/");
-        } else {
-          console.warn("⚠️ No se encontró public/_redirects");
-        }
-      },
-    },
-  ].filter(Boolean),
+export default defineConfig({
+  plugins: [react()],
+
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
     },
   },
-}));
+
+  server: {
+    host: '127.0.0.1',
+    port: 5173,
+    strictPort: true,
+    open: false,
+    cors: false,
+    hmr: { overlay: true }
+  },
+
+  preview: {
+    host: '127.0.0.1',
+    port: 4173,
+    strictPort: true,
+    open: false
+  },
+
+  build: {
+    target: 'es2019',
+    sourcemap: false
+  },
+
+  optimizeDeps: {
+    force: false
+  }
+})

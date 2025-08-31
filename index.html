@@ -1,100 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- 🔹 Title optimizado (máx. 60 caracteres) -->
-    <title>Technikhilfe Köln | PC, WLAN, Smartphone & Drucker Service</title>
+    <!-- Título y descripción por defecto del sitio -->
+    <title>Technikhilfe in Köln | Claveon / Köln Tech Helfer</title>
+    <meta name="description" content="Vor-Ort Technikhilfe in Köln: WLAN, PCs, Smartphones, Drucker, NAS. Schnelle Hilfe, klare Preise, WhatsApp Termin." />
 
-    <!-- 🔹 Meta Description optimizada -->
-    <meta
-      name="description"
-      content="Technikhilfe in Köln: schnelle Hilfe bei PC, WLAN, Smartphone, Drucker & TV. Freundlich, verständlich, vor Ort. WhatsApp oder Anruf genügt."
-    />
-
-    <!-- Autor -->
-    <meta name="author" content="Technikhilfe Martin Köln" />
-
-    <!-- Keywords -->
-    <meta
-      name="keywords"
-      content="Technikhilfe Köln, Computerhilfe Köln, PC Hilfe Köln, WLAN Probleme Köln, Smartphone Hilfe Köln, Drucker Hilfe Köln, IT Support Köln"
-    />
-
-    <!-- Robots -->
-    <meta name="robots" content="index, follow" />
-
-    <!-- Canonical URL -->
+    <!-- URL canónica (ajusta dominio y path) -->
     <link rel="canonical" href="https://claveon.de/" />
 
-    <!-- Sitemap -->
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="/sitemap.xml"
-    />
-
-    <!-- 🔹 Open Graph -->
-    <meta
-      property="og:title"
-      content="Technikhilfe Köln – PC, WLAN & Smartphone Hilfe"
-    />
-    <meta
-      property="og:description"
-      content="Schnelle & einfache Technikhilfe in Köln. Vor Ort, geduldig, verständlich. WhatsApp oder Anruf genügt."
-    />
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Claveon" />
+    <meta property="og:title" content="Technikhilfe in Köln | Claveon / Köln Tech Helfer" />
+    <meta property="og:description" content="Vor-Ort Technikhilfe in Köln: WLAN, PCs, Smartphones, Drucker, NAS. Schnelle Hilfe, klare Preise, WhatsApp Termin." />
     <meta property="og:url" content="https://claveon.de/" />
-    <meta property="og:image" content="https://claveon.de/assets/preview.jpg" />
-    <meta property="og:locale" content="de_DE" />
+    <meta property="og:image" content="/og-image.jpg" />
 
-    <!-- 🔹 Twitter Cards -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Technikhilfe Martin Köln" />
-    <meta
-      name="twitter:description"
-      content="Schnelle Hilfe bei Computer, WLAN, Smartphone, Drucker & TV – direkt in Köln."
-    />
-    <meta name="twitter:image" content="https://claveon.de/assets/preview.jpg" />
+    <meta name="twitter:title" content="Technikhilfe in Köln | Claveon / Köln Tech Helfer" />
+    <meta name="twitter:description" content="Vor-Ort Technikhilfe in Köln: WLAN, PCs, Smartphones, Drucker, NAS. Schnelle Hilfe, klare Preise, WhatsApp Termin." />
+    <meta name="twitter:image" content="/og-image.jpg" />
 
-    <!-- 🔹 Local Business Schema.org -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Technikhilfe Martin Köln",
-        "description": "Technikhilfe in Köln: PC, WLAN, Smartphone, Drucker und TV Support.",
-        "telephone": "+49 1556 5029989",
-        "email": "pleinto@proton.me",
-        "url": "https://claveon.de",
-        "logo": "https://claveon.de/assets/logo.png",
-        "image": "https://claveon.de/assets/preview.jpg",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Liebigstraße",
-          "postalCode": "50823",
-          "addressLocality": "Köln",
-          "addressCountry": "DE"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": "50.9500",
-          "longitude": "6.9167"
-        },
-        "areaServed": {
-          "@type": "City",
-          "name": "Köln"
-        },
-        "openingHours": "Mo-Fr 09:00-18:00",
-        "priceRange": "€"
-      }
-    </script>
+    <!-- Color del navegador móvil -->
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <!-- Iconos (pon tus archivos reales en /public) -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preload de imagen LCP si tienes un hero -->
+    <link rel="preload" as="image" href="/images/hero.webp" fetchpriority="high" />
+
   </head>
-
-  <body>
+  <body class="min-h-dvh bg-white text-slate-900 antialiased">
+    <a class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-white/90 p-2 rounded" href="#main">Zum Inhalt springen</a>
     <div id="root"></div>
+
+    <!-- JSON-LD LocalBusiness mínimo. Rellena los {{campos}} -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://claveon.de/#business",
+      "name": "Claveon Technikhilfe Köln",
+      "image": "https://claveon.de/og-image.jpg",
+      "url": "https://claveon.de/",
+      "telephone": "+49{{TELEFONO_SIN_0}}",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{STRASSE}}",
+        "addressLocality": "Köln",
+        "postalCode": "{{PLZ}}",
+        "addressCountry": "DE"
+      },
+      "areaServed": ["Köln","Hürth","Frechen","Leverkusen","Bonn Nord","Bergisch Gladbach","Pulheim","Dormagen"],
+      "openingHoursSpecification": [
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"18:00","closes":"21:00"},
+        {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"18:00"},
+        {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"12:00","closes":"16:00"}
+      ],
+      "sameAs": [
+        "https://wa.me/49{{TELEFONO_SIN_0}}?text=Hallo%20Martin%2C%20ich%20brauche%20Hilfe.",
+        "https://maps.google.com/?q=Claveon+Technikhilfe+K%C3%B6ln"
+      ]
+    }
+    </script>
+
+    <!-- Vite/React punto de entrada -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
