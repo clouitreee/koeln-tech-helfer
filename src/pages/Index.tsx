@@ -26,10 +26,10 @@ const Index = () => {
           url: href,
         });
       } catch {
-        window.open(\`https://wa.me/?text=\${encodeURIComponent(href)}\`, "_blank");
+        window.open(`https://wa.me/?text=\${encodeURIComponent(href)}`, "_blank");
       }
     } else {
-      window.open(\`https://wa.me/?text=\${encodeURIComponent(href)}\`, "_blank");
+      window.open(`https://wa.me/?text=\${encodeURIComponent(href)}`, "_blank");
     }
   };
 
