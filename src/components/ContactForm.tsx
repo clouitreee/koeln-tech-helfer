@@ -26,14 +26,16 @@ export const ContactForm = () => {
         />
       </div>
 
-      {/* Nachricht */}
+      {/* Nachricht / Problem */}
       <div>
-        <label className="block mb-2 font-medium text-foreground">Nachricht *</label>
+        <label className="block mb-2 font-medium text-foreground">
+          Wobei darf ich Ihnen helfen? *
+        </label>
         <textarea
           {...register("message", { required: true })}
           rows={4}
           className="w-full p-3 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-          placeholder="Worum geht es?"
+          placeholder="Bitte beschreiben Sie Ihr Problem..."
         />
       </div>
 
@@ -42,7 +44,7 @@ export const ContactForm = () => {
         type="submit"
         className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition"
       >
-        Nachricht senden
+        Absenden & Hilfe erhalten
       </button>
     </form>
   );
