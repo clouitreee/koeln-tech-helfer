@@ -1,0 +1,25 @@
+dist/
+.build/
+.cache/
+cat > .gitignore <<'EOF'
+# Build output
+dist/
+.build/
+.cache/
+
+# Dependencies
+node_modules/
+bun.lockb
+pnpm-lock.yaml
+yarn.lock
+
+# Env & local
+.env
+.env.*
+!.env.example
+
+# OS / Editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
