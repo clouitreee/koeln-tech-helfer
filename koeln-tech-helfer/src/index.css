@@ -80,3 +80,30 @@
     box-shadow: inset 0 0 0 1px hsl(var(--primary));
   }
 }
+
+/* ==== Energía Urbana: reveal + cursor + small helpers ==== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(12px) scale(.995);
+  transition: opacity .6s ease, transform .6s cubic-bezier(.2,.9,.25,1);
+  will-change: transform, opacity;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.typewriter + .cursor, .animate-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1.2em;
+  margin-left: .35rem;
+  background: currentColor;
+  animation: energy-blink 1s steps(2, start) infinite;
+}
+@keyframes energy-blink {
+  50% { opacity: 0; }
+}
+
+/* tiny niceties */
+.text-gradient svg { filter: hue-rotate(290deg) saturate(140%); }
