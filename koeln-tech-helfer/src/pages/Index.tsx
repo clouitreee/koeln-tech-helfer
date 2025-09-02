@@ -26,10 +26,10 @@ const Index = () => {
           url: href,
         });
       } catch {
-        window.open(`https://wa.me/?text=\${encodeURIComponent(href)}`, "_blank");
+        window.open(`https://wa.me/?text=${encodeURIComponent(href)}`, "_blank");
       }
     } else {
-      window.open(`https://wa.me/?text=\${encodeURIComponent(href)}`, "_blank");
+      window.open(`https://wa.me/?text=${encodeURIComponent(href)}`, "_blank");
     }
   };
 
@@ -73,28 +73,50 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                 {/* WhatsApp */}
                 <Button
-                  className="inline-flex items-center rounded-full px-5 md:px-6 py-3 text-base md:text-lg font-semibold shadow"
-                  style={{ minHeight: "44px", backgroundColor: "#25D366", color: "#ffffff" }}
+                  asChild
+                  className="inline-flex items-center rounded-full px-5 md:px-6 py-3 text-base md:text-lg font-semibold shadow-soft"
+                  style={{
+                    minHeight: "44px",
+                    backgroundColor: "#25D366",
+                    color: "#ffffff",
+                  }}
                 >
                   <a
                     href={whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Per WhatsApp schreiben"
-                    className="flex items-center no-underline"
+                    className="no-underline"
                   >
-                    <img src="/assets/whatsapp.svg" alt="WhatsApp" className="w-5 h-5 mr-2 inline-block align-middle" />
+                    <img
+                      src="/assets/whatsapp.svg"
+                      alt="WhatsApp"
+                      className="w-5 h-5 mr-2 inline-block align-middle"
+                    />
                     WhatsApp
                   </a>
                 </Button>
 
                 {/* E-Mail */}
                 <Button
-                  className="inline-flex items-center rounded-full px-5 md:px-6 py-3 text-base md:text-lg font-semibold shadow"
-                  style={{ minHeight: "44px", backgroundColor: "#2563EB", color: "#ffffff" }}
+                  asChild
+                  className="inline-flex items-center rounded-full px-5 md:px-6 py-3 text-base md:text-lg font-semibold shadow-soft"
+                  style={{
+                    minHeight: "44px",
+                    backgroundColor: "#2563EB", // Azul claro
+                    color: "#ffffff",
+                  }}
                 >
-                  <a href="mailto:info@claveon.de" aria-label="E-Mail schreiben" className="flex items-center no-underline">
-                    <img src="/assets/mail.svg" alt="E-Mail" className="w-5 h-5 mr-2 inline-block align-middle" />
+                  <a
+                    href="mailto:info@claveon.de"
+                    aria-label="E-Mail schreiben"
+                    className="no-underline"
+                  >
+                    <img
+                      src="/assets/mail.svg"
+                      alt="E-Mail"
+                      className="w-5 h-5 mr-2 inline-block align-middle"
+                    />
                     E-Mail
                   </a>
                 </Button>
@@ -144,7 +166,10 @@ const Index = () => {
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 mb-6 md:mb-8">
             {services.map((service, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-5 md:p-6 hover:shadow-lg transition-shadow">
+              <div
+                key={i}
+                className="bg-card border border-border rounded-lg p-5 md:p-6 hover:shadow-lg transition-shadow"
+              >
                 <div className="text-primary mb-3 md:mb-4">{service.icon}</div>
                 <h3 className="text-base md:text-lg font-semibold mb-1.5">{service.title}</h3>
                 <p className="text-muted-foreground text-sm md:text-base">{service.description}</p>
@@ -191,7 +216,7 @@ const Index = () => {
       <section id="kontakt" className="py-14 md:py-16">
         <div className="container">
           <h2 className="text-center text-2xl md:text-3xl font-bold mb-8 md:mb-12">Kontakt</h2>
-        <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <h3 className="text-lg md:text-xl font-semibold mb-4 md:mb-6">Nachricht senden</h3>
             <ContactForm />
           </div>
@@ -208,7 +233,11 @@ const Index = () => {
             <p className="mb-4 md:mb-6 text-sm md:text-base">
               Teilen Sie diesen Link mit Familie oder Freunden: <strong>{origin}</strong>
             </p>
-            <Button onClick={shareWebsite} className="inline-flex items-center" style={{ minHeight: "44px" }}>
+            <Button
+              onClick={shareWebsite}
+              className="inline-flex items-center"
+              style={{ minHeight: "44px" }}
+            >
               <Share2 className="w-5 h-5 mr-2" />
               Link per WhatsApp teilen
             </Button>
@@ -221,10 +250,16 @@ const Index = () => {
         <div className="container">
           <div className="text-center">
             <div className="flex flex-wrap justify-center gap-5 md:gap-6 mb-5 md:mb-6">
-              <a href="/impressum" className="text-muted-foreground hover:text-foreground">Impressum</a>
-              <a href="/datenschutz" className="text-muted-foreground hover:text-foreground">Datenschutzerklärung</a>
+              <a href="/impressum" className="text-muted-foreground hover:text-foreground">
+                Impressum
+              </a>
+              <a href="/datenschutz" className="text-muted-foreground hover:text-foreground">
+                Datenschutzerklärung
+              </a>
             </div>
-            <p className="text-xs md:text-sm text-muted-foreground">Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.</p>
+            <p className="text-xs md:text-sm text-muted-foreground">
+              Keine Tracking-Cookies. Keine Weitergabe Ihrer Daten an Dritte.
+            </p>
           </div>
         </div>
       </footer>
@@ -235,5 +270,3 @@ const Index = () => {
 };
 
 export default Index;
-
-
